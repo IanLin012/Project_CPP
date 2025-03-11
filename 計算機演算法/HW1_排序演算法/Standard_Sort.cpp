@@ -45,7 +45,7 @@ int main() {
             auto duration = duration_cast<nanoseconds>(end - start);
             total_time += duration.count();
         }
-        cout << "std::sort cost time: " << total_time/10 << " ns" << endl;
+        cout << "Standard Sort cost time: " << total_time/10 << " ns" << endl;
         
         cout << "The first 10 data: ";
         for (int i=0; i<min((int)sorted_data.size(), 10); i++) {

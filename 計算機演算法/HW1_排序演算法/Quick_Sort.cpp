@@ -89,7 +89,7 @@ int main() {
             auto durationStd = duration_cast<nanoseconds>(end - start);
             total_time += durationStd.count();
         }
-        cout << "QuickSort cost time: " << total_time/10 << " ns" << endl;
+        cout << "Quick Sort cost time: " << total_time/10 << " ns" << endl;
         
         cout << "The first 10 data: ";
         for (int i=0; i<min((int)sorted_data.size(), 10); i++) {

@@ -9,14 +9,16 @@
 using namespace std;
 using namespace std::chrono;
 
-void bubbleSort(vector<int>& arr) {
+void insertionSort(vector<int>& arr) {
     int n = arr.size();
-    for (int i=0; i<n-1; i++) {
-        for (int j=0; j<n-i-1; j++) {
-            if (arr[j] > arr[j+1]) {
-                swap(arr[j], arr[j+1]);
-            }
+    for (int i=1; i<n; i++) {
+        int key = arr[i];
+        int j = i-1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j+1] = arr[j];
+            j--;
         }
+        arr[j+1] = key;
     }
 }
 
@@ -51,12 +53,12 @@ int main() {
         for (int c=0; c<10; c++) {
             sorted_data = data;
             auto start = high_resolution_clock::now();
-            bubbleSort(sorted_data);
+            insertionSort(sorted_data);
             auto end = high_resolution_clock::now();
             auto duration = duration_cast<nanoseconds>(end - start);
             total_time += duration.count();
         }
-        cout << "Bubble Sort cost time: " << total_time/10 << " ns" << endl;
+        cout << "Insertion Sort cost time: " << total_time/10 << " ns" << endl;
 
         cout << "The first 10 data: ";
         for (int i=0; i < min((int)sorted_data.size(), 10); i++) {
