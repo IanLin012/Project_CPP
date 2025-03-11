@@ -11,10 +11,10 @@ using namespace std::chrono;
 
 void bubbleSort(vector<int>& arr) {
     int n = arr.size();
-    for (int i = 0; i <n-1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
+    for (int i=0; i<n-1; i++) {
+        for (int j=0; j<n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
             }
         }
     }
@@ -23,13 +23,12 @@ void bubbleSort(vector<int>& arr) {
 int main() {
     ifstream file("data.csv");
     if (!file) {
-        cout << "unable to open data.csv" << endl;
+        cout << "failed to open data.csv" << endl;
         return 1;
     }
 
     string line;
     vector<vector<int>> testData;
-    
     while(getline(file, line)) {
         vector<int> numbers;
         stringstream ss(line);
@@ -48,18 +47,20 @@ int main() {
     for(auto &data : testData) {
         total_time = 0;
         cout << "Test Case " << testCaseNumber << ": include " << data.size() << " data" << endl;
+        vector<int> sorted_data;
         for (int c=0; c<10; c++) {
+            sorted_data = data;
             auto start = high_resolution_clock::now();
-            bubbleSort(data);
+            bubbleSort(sorted_data);
             auto end = high_resolution_clock::now();
             auto duration = duration_cast<nanoseconds>(end - start);
             total_time += duration.count();
         }
         cout << "bubble sort cost time: " << total_time/10 << " ns" << endl;
 
-        cout << "10 data after sort: ";
-        for (int i = 0; i < min((int)data.size(), 10); i++) {
-            cout << data[i] << " ";
+        cout << "The first 10 data: ";
+        for (int i=0; i < min((int)sorted_data.size(), 10); i++) {
+            cout << sorted_data[i] << " ";
         }
         cout << "\n\n";
         testCaseNumber++;
