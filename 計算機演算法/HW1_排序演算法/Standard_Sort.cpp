@@ -38,7 +38,7 @@ int main() {
         total_time = 0;
         cout << "Test Case " << testCaseNumber << ": include " << data.size() << " data" << endl;
         vector<int> originalData = data;
-        for (int c = 0; c < 3; c++) {
+        for (int c=0; c<100; c++) {
             vector<int> temp = originalData;
             auto start = high_resolution_clock::now();
             sort(temp.begin(), temp.end());
@@ -49,7 +49,7 @@ int main() {
                 data = temp;
             }
         }
-        cout << "std::sort cost time: " << total_time / 3 << " ns" << endl;
+        cout << "std::sort cost time: " << total_time/100 << " ns" << endl;
 
         cout << "10 data after sort: ";
         for (int i = 0; i < min((int)data.size(), 10); i++) {
