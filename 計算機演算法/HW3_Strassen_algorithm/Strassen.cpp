@@ -45,7 +45,7 @@ vector<vector<long long>> strassen(const vector<vector<long long>> &A, const vec
     if (n <= maxSize) {
         return standardMultiply(A, B, n);
     }
-    
+
     int newSize = n / 2;
 
     vector<vector<long long>> A11(newSize, vector<long long>(newSize)),
@@ -56,7 +56,7 @@ vector<vector<long long>> strassen(const vector<vector<long long>> &A, const vec
                              B12(newSize, vector<long long>(newSize)),
                              B21(newSize, vector<long long>(newSize)),
                              B22(newSize, vector<long long>(newSize));
-    
+
     //Divide into 4 submatrix
     for (int i = 0; i < newSize; i++) {
         for (int j = 0; j < newSize; j++) {
@@ -64,14 +64,14 @@ vector<vector<long long>> strassen(const vector<vector<long long>> &A, const vec
             A12[i][j] = A[i][j + newSize];
             A21[i][j] = A[i + newSize][j];
             A22[i][j] = A[i + newSize][j + newSize];
-            
+
             B11[i][j] = B[i][j];
             B12[i][j] = B[i][j + newSize];
             B21[i][j] = B[i + newSize][j];
             B22[i][j] = B[i + newSize][j + newSize];
         }
     }
-    
+
     //Calculate 7 new matrix
     vector<vector<long long>> M1 = strassen(addMatrix(A11, A22, newSize), addMatrix(B11, B22, newSize), newSize);
     vector<vector<long long>> M2 = strassen(addMatrix(A21, A22, newSize), B11, newSize);
@@ -80,13 +80,13 @@ vector<vector<long long>> strassen(const vector<vector<long long>> &A, const vec
     vector<vector<long long>> M5 = strassen(addMatrix(A11, A12, newSize), B22, newSize);
     vector<vector<long long>> M6 = strassen(subtractMatrix(A21, A11, newSize), addMatrix(B11, B12, newSize), newSize);
     vector<vector<long long>> M7 = strassen(subtractMatrix(A12, A22, newSize), addMatrix(B21, B22, newSize), newSize);
-    
+
     //Combine results 
     vector<vector<long long>> C11 = addMatrix(subtractMatrix(addMatrix(M1, M4, newSize), M5, newSize), M7, newSize);
     vector<vector<long long>> C12 = addMatrix(M3, M5, newSize);
     vector<vector<long long>> C21 = addMatrix(M2, M4, newSize);
     vector<vector<long long>> C22 = addMatrix(subtractMatrix(addMatrix(M1, M3, newSize), M2, newSize), M6, newSize);
-    
+
     //Combine into complete matrix
     vector<vector<long long>> C(n, vector<long long>(n));
     for (int i = 0; i < newSize; i++) {
@@ -110,11 +110,11 @@ int main() {
 
     int size = max({a, b, c, d});
     size = pow(2, ceil(log2(size))); //Adjust matrix size to power of 2
-    
+
     //Initialize matrix A and B with 0
     vector<vector<long long>> A(size, vector<long long>(size, 0));
     vector<vector<long long>> B(size, vector<long long>(size, 0));
-    
+
     //Input matrix A and B
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
@@ -126,9 +126,9 @@ int main() {
             cin >> B[i][j];
         }
     }
-    
+
     vector<vector<long long>> result = strassen(A, B, size); 
-    
+
     //Output complete matrix
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < d; j++) {
