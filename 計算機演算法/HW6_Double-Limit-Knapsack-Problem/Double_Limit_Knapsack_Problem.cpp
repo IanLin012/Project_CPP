@@ -11,8 +11,8 @@ struct Item {
 };
 
 int W, V, n; //max weight, max volume, number of items
-vector<Item> items; //store all items
 int maxVal = 0; //record current max value
+vector<Item> items;
 vector<int> valLeft; //total values of remaining item
 
 void dfs(int index, int curW, int curV, int curVal) {
@@ -46,7 +46,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         cin >> items[i].weight >> items[i].volume >> items[i].val;
     }
-        
+
     //sort items by value in descending order
     sort(items.begin(), items.end(), compareByValue);
 
